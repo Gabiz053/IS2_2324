@@ -1,4 +1,4 @@
-
+package es.unican.is2.FranquiciasUCDatos;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,9 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.unican.is2.FranquiciasUCCommon.DataAccessException;
+import es.unican.is2.FranquiciasUCCommon.ITiendasDAO;
+import es.unican.is2.FranquiciasUCCommon.Tienda;
+
 /**
- * Implementacion de la capa DAO de acceso a Tiendas. 
- * Utiliza almacenamiento en base de datos H2 en memoria.
+ * Implementacion de la capa DAO de acceso a Tiendas. Utiliza almacenamiento en
+ * base de datos H2 en memoria.
  */
 public class TiendasDAO implements ITiendasDAO {
 
@@ -47,7 +51,7 @@ public class TiendasDAO implements ITiendasDAO {
 			ResultSet results = statement.executeQuery(statementText);
 			if (results.next())
 				result = procesaTienda(con, results);
-			statement.close(); 
+			statement.close();
 
 		} catch (SQLException e) {
 			// System.out.println(e);
@@ -57,18 +61,18 @@ public class TiendasDAO implements ITiendasDAO {
 	}
 
 	public List<Tienda> tiendas() throws DataAccessException {
-		List<Tienda> tiendas = new ArrayList<>(); 
-		Connection con = H2ServerConnectionManager.getConnection(); 
+		List<Tienda> tiendas = new ArrayList<>();
+		Connection con = H2ServerConnectionManager.getConnection();
 
 		try {
-			Statement statement = con.createStatement(); 
-			String statementText = "select * from Tienda"; 
-			ResultSet results = statement.executeQuery(statementText); 
+			Statement statement = con.createStatement();
+			String statementText = "select * from Tienda";
+			ResultSet results = statement.executeQuery(statementText);
 			// Procesamos cada fila como tienda independiente
 			while (results.next()) {
-				tiendas.add(procesaTienda(con, results)); 
+				tiendas.add(procesaTienda(con, results));
 			}
-			statement.close(); 
+			statement.close();
 		} catch (SQLException e) {
 			// System.out.println(e);
 			throw new DataAccessException();

@@ -13,4 +13,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<!-- como usamos un archivo de otro proyecto ponemos la dependencia-->
+	<!-- debe estar ya instalado en el repositorio local para que lo detecte-->
+	<dependencies>
+		<dependency>
+			<groupId>es.unican.is2</groupId>
+			<artifactId>FranquiciasUCCommon</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	
 </project>

@@ -1,18 +1,21 @@
-
+package es.unican.is2.FranquiciasUCDatos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import es.unican.is2.FranquiciasUCCommon.DataAccessException;
+import es.unican.is2.FranquiciasUCCommon.Tienda;
+
 /**
- * Clase de utilidad que mapea filas de la base de datos a objetos 
- * de tipo Tienda.
+ * Clase de utilidad que mapea filas de la base de datos a objetos de tipo
+ * Tienda.
  */
 public class TiendaMapper {
-	
-	
+
 	/**
-	 * Recibe un ResultSet de una Tienda y devuelve un
-	 * objeto Tienda con los datos del ResultSet
+	 * Recibe un ResultSet de una Tienda y devuelve un objeto Tienda con los datos
+	 * del ResultSet
+	 * 
 	 * @param results Fila resultado de una consulta en base de datos
 	 * @return Tienda
 	 */

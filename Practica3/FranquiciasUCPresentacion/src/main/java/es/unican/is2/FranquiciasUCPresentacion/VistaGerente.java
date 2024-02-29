@@ -1,4 +1,4 @@
-
+package es.unican.is2.FranquiciasUCPresentacion;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -7,19 +7,25 @@ import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JList;
 
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import javax.swing.JButton;
 
+import es.unican.is2.FranquiciasUCCommon.DataAccessException;
+import es.unican.is2.FranquiciasUCCommon.Empleado;
+import es.unican.is2.FranquiciasUCCommon.IGestionEmpleados;
+import es.unican.is2.FranquiciasUCCommon.IGestionTiendas;
+import es.unican.is2.FranquiciasUCCommon.Tienda;
+
 /**
- * Clase que implementa la vista del gerente dentro de la capa de
- * presentacion de la aplicacion usando Swing
+ * Clase que implementa la vista del gerente dentro de la capa de presentacion
+ * de la aplicacion usando Swing
  */
 @SuppressWarnings("serial")
 public class VistaGerente extends JFrame {
@@ -34,6 +40,7 @@ public class VistaGerente extends JFrame {
 
 	private IGestionTiendas tiendas;
 	private IGestionEmpleados empleados;
+
 	/**
 	 * Create the frame.
 	 */
@@ -109,25 +116,24 @@ public class VistaGerente extends JFrame {
 		btnBuscar.setName("btnBuscar");
 		listNombreEmpleados.setVisible(true);
 	}
-	
-	
+
 	private void rellenaDatosTienda(String nombre) {
 		try {
-		Tienda t = tiendas.tienda(nombre);
-		if (t != null) {
-			txtDireccionTienda.setText(t.getNombre());
-			txtTotalSueldos.setText(Double.toString(t.gastoMensualSueldos()));
-			listModel.removeAllElements();
-			for (int i = 0; i < t.getEmpleados().size()-1; i++) {
-				Empleado e = t.getEmpleados().get(i);
-				listModel.addElement(e.getNombre());
+			Tienda t = tiendas.tienda(nombre);
+			if (t != null) {
+				txtDireccionTienda.setText(t.getNombre());
+				txtTotalSueldos.setText(Double.toString(t.gastoMensualSueldos()));
+				listModel.removeAllElements();
+				for (int i = 0; i < t.getEmpleados().size() - 1; i++) {
+					Empleado e = t.getEmpleados().get(i);
+					listModel.addElement(e.getNombre());
+				}
+			} else {
+				txtDireccionTienda.setText("Tienda no existe");
+				txtTotalSueldos.setText("");
+				listModel.removeAllElements();
 			}
-		} else {
-			txtDireccionTienda.setText("Tienda no existe");
-			txtTotalSueldos.setText("");
-			listModel.removeAllElements();
-		}
-		}catch (DataAccessException e) {
+		} catch (DataAccessException e) {
 			txtDireccionTienda.setText("Error acceso a datos");
 			txtTotalSueldos.setText("");
 			listModel.removeAllElements();

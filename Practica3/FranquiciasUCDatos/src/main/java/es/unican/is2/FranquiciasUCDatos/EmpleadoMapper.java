@@ -1,17 +1,22 @@
-
+package es.unican.is2.FranquiciasUCDatos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import es.unican.is2.FranquiciasUCCommon.Categoria;
+import es.unican.is2.FranquiciasUCCommon.DataAccessException;
+import es.unican.is2.FranquiciasUCCommon.Empleado;
+
 /**
- * Clase de utilidad que mapea filas de la base de datos a objetos 
- * de tipo Empleado
+ * Clase de utilidad que mapea filas de la base de datos a objetos de tipo
+ * Empleado
  */
 public class EmpleadoMapper {
 
 	/**
-	 * Método privado de apoyo. Recibe un ResultSet de un empleado
-	 * y devuelve un objeto Empleado con los datos del ResultSet
+	 * Mï¿½todo privado de apoyo. Recibe un ResultSet de un empleado y devuelve un
+	 * objeto Empleado con los datos del ResultSet
+	 * 
 	 * @param results Fila resultado de una consulta en base de datos
 	 * @return Empleado
 	 */
@@ -24,8 +29,7 @@ public class EmpleadoMapper {
 			emp.setBaja(results.getBoolean("baja"));
 			emp.setFechaContratacion(results.getDate("fechaContratacion").toLocalDate());
 			emp.setCategoria(Categoria.valueOf(results.getString("categoria")));
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new DataAccessException();
 		}
 		return emp;
