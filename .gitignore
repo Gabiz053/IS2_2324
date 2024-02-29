@@ -1,0 +1,14 @@
+# para eclipse #
+
+.metadata/
+.recommenders/
+.settings/
+bin/
+
+.project
+.classpath
+
+
+# para maven #
+
+target/
