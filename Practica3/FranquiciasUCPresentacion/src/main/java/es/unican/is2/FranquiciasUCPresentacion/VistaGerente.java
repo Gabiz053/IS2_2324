@@ -39,6 +39,7 @@ public class VistaGerente extends JFrame {
 	private JButton btnBuscar;
 
 	private IGestionTiendas tiendas;
+	@SuppressWarnings("unused")
 	private IGestionEmpleados empleados;
 
 	/**

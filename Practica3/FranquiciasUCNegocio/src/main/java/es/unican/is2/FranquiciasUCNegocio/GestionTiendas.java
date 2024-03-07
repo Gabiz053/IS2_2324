@@ -9,26 +9,27 @@ import es.unican.is2.FranquiciasUCCommon.ITiendasDAO;
 
 public class GestionTiendas implements IGestionTiendas {
 
+	ITiendasDAO tiendasDAO;
+
 	public GestionTiendas(ITiendasDAO tiendasDAO) {
-		// TODO Auto-generated constructor stub
+		this.tiendasDAO = tiendasDAO;
 	}
 
 	@Override
 	public Tienda nuevaTienda(Tienda t) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return tiendasDAO.crearTienda(t);
 	}
 
 	@Override
 	public Tienda eliminarTienda(String nombre) throws OperacionNoValidaException, DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		Tienda tienda = tienda(nombre);
+		tiendasDAO.eliminarTienda(tienda.getId());
+		return tienda;
 	}
 
 	@Override
 	public Tienda tienda(String nombre) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		return tiendasDAO.tiendaPorNombre(nombre);
 	}
 
 }

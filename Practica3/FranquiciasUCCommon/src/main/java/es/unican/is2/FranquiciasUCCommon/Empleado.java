@@ -37,8 +37,47 @@ public class Empleado {
 	 * Retorna el sueldo bruto del empleado
 	 */
 	public double sueldoBruto() {
-		// TODO
-		return 0;
+		double sueldoBase = 0;
+		double complementoAntiguedad = 0;
+		double sueldoTotal = 0;
+
+		LocalDate fechaActual = LocalDate.now();
+
+		/* calculamos el sueldo base segun categoria */
+		switch (categoria) {
+		case ENCARGADO:
+			sueldoBase = 2000;
+			break;
+		case VENDEDOR:
+			sueldoBase = 1500;
+			break;
+		case AUXILIAR:
+			sueldoBase = 1000;
+			break;
+		default:
+			sueldoBase = 0;
+		}
+
+		/* calculamos el complemento por antiguedad */
+		if (fechaContratacion.plusYears(5).isBefore(fechaActual)) {
+			complementoAntiguedad = 50;
+
+		} else if (fechaContratacion.plusYears(10).isBefore(fechaActual)) {
+			complementoAntiguedad = 100;
+
+		} else if (fechaContratacion.plusYears(20).isBefore(fechaActual)) {
+			complementoAntiguedad = 200;
+		}
+
+		/* calculamos el sueldo total */
+		sueldoTotal = sueldoBase + complementoAntiguedad;
+
+		/* miramos si estaba de baja */
+		if (baja) {
+			sueldoTotal = sueldoTotal * 0.75;
+		}
+
+		return sueldoTotal;
 	}
 
 	/**
