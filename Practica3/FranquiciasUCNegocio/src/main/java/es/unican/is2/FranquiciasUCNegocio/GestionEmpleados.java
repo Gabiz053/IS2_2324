@@ -10,8 +10,8 @@ import es.unican.is2.FranquiciasUCCommon.IEmpleadosDAO;
 
 public class GestionEmpleados implements IGestionEmpleados {
 
-	ITiendasDAO tiendasDAO;
-	IEmpleadosDAO empleadosDAO;
+	private ITiendasDAO tiendasDAO;
+	private IEmpleadosDAO empleadosDAO;
 
 	public GestionEmpleados(ITiendasDAO tiendasDAO, IEmpleadosDAO empleadosDAO) {
 		this.tiendasDAO = tiendasDAO;

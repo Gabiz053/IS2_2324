@@ -9,7 +9,7 @@ import es.unican.is2.FranquiciasUCCommon.ITiendasDAO;
 
 public class GestionTiendas implements IGestionTiendas {
 
-	ITiendasDAO tiendasDAO;
+	private ITiendasDAO tiendasDAO;
 
 	public GestionTiendas(ITiendasDAO tiendasDAO) {
 		this.tiendasDAO = tiendasDAO;

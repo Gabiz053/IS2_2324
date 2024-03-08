@@ -59,14 +59,14 @@ public class Empleado {
 		}
 
 		/* calculamos el complemento por antiguedad */
-		if (fechaContratacion.plusYears(5).isBefore(fechaActual)) {
-			complementoAntiguedad = 50;
+		if (fechaContratacion.plusYears(20).isBefore(fechaActual)) {
+			complementoAntiguedad = 200;
 
 		} else if (fechaContratacion.plusYears(10).isBefore(fechaActual)) {
 			complementoAntiguedad = 100;
 
-		} else if (fechaContratacion.plusYears(20).isBefore(fechaActual)) {
-			complementoAntiguedad = 200;
+		} else if (fechaContratacion.plusYears(5).isBefore(fechaActual)) {
+			complementoAntiguedad = 50;
 		}
 
 		/* calculamos el sueldo total */
