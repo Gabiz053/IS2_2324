@@ -26,7 +26,21 @@ public class Empleado {
 	 * @param categoria
 	 * @param fechaContratacion
 	 */
-	public Empleado(String DNI, String nombre, Categoria categoria, LocalDate fechaContratacion) {
+	public Empleado(String DNI, String nombre, Categoria categoria, LocalDate fechaContratacion) throws DatoIncorrectoException{
+		/* Gestion de excepciones, separadas ya que queremos distintos mensajes segun el atributo*/
+		if (DNI == null || DNI.isBlank()) {
+			throw new DatoIncorrectoException("Introduce un DNI valido");
+		}
+		if (nombre == null || nombre.isBlank()) {
+			throw new DatoIncorrectoException("Introduce un nombre valido");
+		}
+		if (categoria == null) {
+			throw new DatoIncorrectoException("Introduce una categoria valida");
+		}
+		if (fechaContratacion == null || LocalDate.now().isBefore(fechaContratacion)) {
+			throw new DatoIncorrectoException("Introduce una fechaContratacion valida");
+		}
+		
 		this.nombre = nombre;
 		this.DNI = DNI;
 		this.categoria = categoria;
@@ -53,9 +67,6 @@ public class Empleado {
 			break;
 		case AUXILIAR:
 			sueldoBase = 1000;
-			break;
-		default:
-			sueldoBase = 0;
 		}
 
 		/* calculamos el complemento por antiguedad */
