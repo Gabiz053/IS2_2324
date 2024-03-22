@@ -52,6 +52,7 @@ public class VistaGerente extends JFrame {
 	}
 
 	public void init() {
+		// el frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 441, 341);
 		contentPane = new JPanel();
@@ -60,15 +61,40 @@ public class VistaGerente extends JFrame {
 		contentPane.setLayout(null);
 		listModel = new DefaultListModel<String>();
 
-		txtTotalSueldos = new JTextField();
-		txtTotalSueldos.setBounds(230, 251, 86, 20);
-		contentPane.add(txtTotalSueldos);
-		txtTotalSueldos.setColumns(10);
-		txtTotalSueldos.setName("txtTotalContribuyente");
+		// todas las label
+		JLabel lblNombreTienda = new JLabel("Nombre Tienda");
+		lblNombreTienda.setBounds(21, 27, 139, 14);
+		contentPane.add(lblNombreTienda);
+		lblNombreTienda.setName("lblNombreTienda");
+
+		JLabel lblDatosTienda = new JLabel("Datos Tienda");
+		lblDatosTienda.setBounds(230, 11, 149, 14);
+		contentPane.add(lblDatosTienda);
+
+		JLabel lblNombreDireccion = new JLabel("Direccion");
+		lblNombreDireccion.setBounds(155, 54, 65, 14);
+		contentPane.add(lblNombreDireccion);
+
+		JLabel lblEmpleados = new JLabel("Empleados");
+		lblEmpleados.setBounds(132, 103, 83, 14);
+		contentPane.add(lblEmpleados);
 
 		JLabel lblTotalSueldos = new JLabel("Total sueldos");
 		lblTotalSueldos.setBounds(115, 254, 99, 14);
 		contentPane.add(lblTotalSueldos);
+
+		// los textBox (primero el input)
+		txtNombreTienda = new JTextField();
+		txtNombreTienda.setBounds(10, 51, 113, 20);
+		contentPane.add(txtNombreTienda);
+		txtNombreTienda.setColumns(10);
+		txtNombreTienda.setName("txtNombreTienda");
+
+		txtDireccionTienda = new JTextField();
+		txtDireccionTienda.setBounds(230, 51, 185, 20);
+		contentPane.add(txtDireccionTienda);
+		txtDireccionTienda.setColumns(10);
+		txtDireccionTienda.setName("txtDireccionTienda");
 
 		listNombreEmpleados = new JList<String>();
 		listNombreEmpleados.setBounds(230, 98, 121, 116);
@@ -77,35 +103,13 @@ public class VistaGerente extends JFrame {
 		listNombreEmpleados.setModel(listModel);
 		listNombreEmpleados.setName("listNombreEmpleados");
 
-		JLabel lblEmpleados = new JLabel("Empleados");
-		lblEmpleados.setBounds(132, 103, 83, 14);
-		contentPane.add(lblEmpleados);
+		txtTotalSueldos = new JTextField();
+		txtTotalSueldos.setBounds(230, 251, 86, 20);
+		contentPane.add(txtTotalSueldos);
+		txtTotalSueldos.setColumns(10);
+		txtTotalSueldos.setName("txtTotalSueldos");
 
-		JLabel lblNombreContribuyente = new JLabel("Direccion");
-		lblNombreContribuyente.setBounds(155, 54, 65, 14);
-		contentPane.add(lblNombreContribuyente);
-
-		txtDireccionTienda = new JTextField();
-		txtDireccionTienda.setBounds(230, 51, 185, 20);
-		contentPane.add(txtDireccionTienda);
-		txtDireccionTienda.setColumns(10);
-		txtDireccionTienda.setName("txtDireccionTienda");
-
-		JLabel lblDatosTienda = new JLabel("Datos Tienda");
-		lblDatosTienda.setBounds(230, 11, 149, 14);
-		contentPane.add(lblDatosTienda);
-
-		txtNombreTienda = new JTextField();
-		txtNombreTienda.setBounds(10, 51, 113, 20);
-		contentPane.add(txtNombreTienda);
-		txtNombreTienda.setColumns(10);
-		txtNombreTienda.setName("txtDireccionTienda");
-
-		JLabel lblNombreTienda = new JLabel("Nombre Tienda");
-		lblNombreTienda.setBounds(21, 27, 139, 14);
-		contentPane.add(lblNombreTienda);
-		lblNombreTienda.setName("lblNombreTienda");
-
+		// botones
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -125,7 +129,7 @@ public class VistaGerente extends JFrame {
 				txtDireccionTienda.setText(t.getNombre());
 				txtTotalSueldos.setText(Double.toString(t.gastoMensualSueldos()));
 				listModel.removeAllElements();
-				for (int i = 0; i < t.getEmpleados().size() - 1; i++) {
+				for (int i = 0; i < t.getEmpleados().size(); i++) {
 					Empleado e = t.getEmpleados().get(i);
 					listModel.addElement(e.getNombre());
 				}
