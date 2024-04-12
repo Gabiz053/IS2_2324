@@ -22,12 +22,12 @@
 			<scope>test</scope>
 		</dependency>
 		 
-		 <!-- Para el jar -->
-		 <dependency>
+		 <!--Para la dependencia -->
+<!--		 <dependency>
 			<groupId>es.unican.is2</groupId>
 			<artifactId>lista</artifactId>
 			<version>1.0</version>
-		</dependency>
+		</dependency>-->
 		 
 	 </dependencies>
 	 
