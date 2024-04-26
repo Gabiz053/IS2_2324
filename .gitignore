@@ -7,10 +7,16 @@ bin/
 
 .project
 .classpath
+
+# extra para los documentos de cada practica #
 *.pdf
 *.doc
 *.docx
 *.mdj
+
+# las dos primeras practicas no deben aparecer #
+practica1 - maven/
+practica2 - git/
 
 # para maven #
 
