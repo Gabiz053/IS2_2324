@@ -7,16 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import es.unican.is2.tienda.vendedorEnPracticas;
+import es.unican.is2.tienda.Vendedor;
+import es.unican.is2.tienda.vendedorPracticas;
 
 
 public class VendedorEnPracticasTest {
 	
-	private static vendedorEnPracticas sut;
+	private static Vendedor sut;
 
 	@BeforeEach
 	public void setUp(){
-		sut = new vendedorEnPracticas("Ana", "1", "11111111A");
+		sut = new vendedorPracticas("Ana", "1", "11111111A");
 	}
 	
 	@Test
@@ -25,7 +26,7 @@ public class VendedorEnPracticasTest {
 		assertEquals(sut.getNombre(), "Ana");
 		assertEquals(sut.getDni(), "11111111A");
 		assertEquals(0.0, sut.getTotalVentas());
-		assertEquals(0.0, sut.getC());
+		assertEquals(0.0, sut.getComision());
 	}
 	
 	@Test
@@ -42,14 +43,14 @@ public class VendedorEnPracticasTest {
 	
 	@Test
 	public void testSetC() {
-		sut.setC(100);
-		assertTrue(sut.getC()==100.0);
+		sut.setComision(100);
+		assertTrue(sut.getComision()==100.0);
 		
-		sut.setC(230);
-		assertTrue(sut.getC()==230.0);
+		sut.setComision(230);
+		assertTrue(sut.getComision()==230.0);
 		
-		sut.setC(0);
-		assertTrue(sut.getC()==0.0);
+		sut.setComision(0);
+		assertTrue(sut.getComision()==0.0);
 	}
 
 	@Test
@@ -67,9 +68,9 @@ public class VendedorEnPracticasTest {
 	
 	@Test
 	public void testEquals() {
-		vendedorEnPracticas igual = new vendedorEnPracticas("Ana", "1", "11111111A");
-		vendedorEnPracticas distintoId = new vendedorEnPracticas("Ana", "2", "11111111A");
-		vendedorEnPracticas distintoNombre = new vendedorEnPracticas("Pepe", "1", "222222222A");
+		Vendedor igual = new vendedorPracticas("Ana", "1", "11111111A");
+		Vendedor distintoId = new vendedorPracticas("Ana", "2", "11111111A");
+		Vendedor distintoNombre = new vendedorPracticas("Pepe", "1", "222222222A");
 		
 		assertTrue(sut.equals(igual));
 		assertFalse(sut.equals(distintoId));

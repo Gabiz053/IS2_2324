@@ -6,6 +6,6 @@ package es.unican.is2.tienda;
  * que existen en la tienda
  *
  */
-public enum TipoVendedor {// WMC: +1 (constructor)
+public enum TipoVendedor {
 	Junior, Senior
 }

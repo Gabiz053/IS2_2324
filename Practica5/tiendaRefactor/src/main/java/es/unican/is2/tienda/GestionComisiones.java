@@ -1,9 +1,5 @@
 package es.unican.is2.tienda;
 
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
 import fundamentos.Menu;
@@ -15,12 +11,15 @@ import fundamentos.Mensaje;
  */
 public class GestionComisiones {
 
+	// opciones del menu
+	public static final int OPCION_NUEVA_VENTA = 0;
+	public static final int OPCION_VENDEDOR_DEL_MES = 1;
+	public static final int OPCION_VENDEDORES = 2;
+
 	/**
 	 * Programa principal basado en menu
 	 */
-	public static void main(String[] args) { // WMC: +1
-		// opciones del menu
-		final int NUEVA_VENTA = 0, VENDEDOR_DEL_MES = 1, VENDEDORES = 2;
+	public static void main(String[] args) {
 
 		// variables auxiliares
 		String dni;
@@ -31,84 +30,68 @@ public class GestionComisiones {
 		String msj;
 
 		// crea la tienda
-		Tienda tienda = new Tienda("C:\\temp\\datosTienda.txt");
+		Tienda tienda = new Tienda(Textos.DATOS_TIENDA_PATH);
 
 		// crea la ventana de menu
-		Menu menu = new Menu("Comisiones tienda");
-		menu.insertaOpcion("Anhadir venta", NUEVA_VENTA);
-		menu.insertaOpcion("Vendedor del mes", VENDEDOR_DEL_MES);
-		menu.insertaOpcion("Vendedores por ventas", VENDEDORES);
+		Menu menu = new Menu(Textos.TIENDA_COMISIONES);
+		menu.insertaOpcion(Textos.VENTA_ANHADIR, OPCION_NUEVA_VENTA);
+		menu.insertaOpcion(Textos.VENDEDOR_MES, OPCION_VENDEDOR_DEL_MES);
+		menu.insertaOpcion(Textos.VENDEDOR_VENTAS, OPCION_VENDEDORES);
 		int opcion;
 
 		// lazo de espera de comandos del usuario
-		while (true) {// WMC: +1   //CCOG: +1
+		while (true) {
+			// leemos el fichero para conseguir los vendedores actualizados
+			try {
+				tienda.vendedores();
+			} catch (DataAccessException e) {
+				mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_NO_ACCEDER);
+			}
+			
 			opcion = menu.leeOpcion();
-
+			
 			// realiza las acciones dependiendo de la opcion elegida
-			switch (opcion) {   //CCOG: +1 +1
-			case NUEVA_VENTA:// WMC: +1
-				lect = new Lectura("Datos Venta");
-				lect.creaEntrada("ID Vendedor", "");
-				lect.creaEntrada("Importe", "");
+			switch (opcion) {
+			case OPCION_NUEVA_VENTA:
+				// creamos ventana y cogemos datos
+				lect = new Lectura(Textos.VENTA_DATOS);
+				lect.creaEntrada(Textos.VENDEDOR_ID, Textos.MSJ_VACIO);
+				lect.creaEntrada(Textos.VENTA_IMPORTE, Textos.MSJ_VACIO);
 				lect.esperaYCierra();
-				dni = lect.leeString("ID Vendedor");
-				double importe = lect.leeDouble("Importe");
+				dni = lect.leeString(Textos.VENDEDOR_ID);
+				double importe = lect.leeDouble(Textos.VENTA_IMPORTE);
+
+				// una vez tenemos los datos tratamos de añadir nueva venta
 				try {
-					if (!tienda.anhadeVenta(dni, importe)) {// WMC: +1   //CCOG: +1 +1 +1
-						mensaje("ERROR", "El vendedor no existe");
+					if (!tienda.anhadeVenta(dni, importe)) {
+						mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_VENDEDOR_NO_EXISTE);
 					}
-				} catch (DataAccessException e) {// WMC: +1   //CCOG: +1 +1 +1
-					mensaje("ERROR", "No se pudo guardar el cambio");
+				} catch (DataAccessException e) {
+					mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_NO_GUARDAR);
 				}
 				break;
 
-			case VENDEDOR_DEL_MES:// WMC: +1
-				try {
-					vendedores = tienda.vendedores();
-					resultado = new LinkedList<Vendedor>();
-					double maxVentas = 0.0;
-					for (Vendedor v : vendedores) {// WMC: +1   //CCOG: +1
-						if (v.getTotalVentas() > maxVentas) {// WMC: +1   //CCOG: +1 +1 
-							maxVentas = v.getTotalVentas();
-							resultado.clear();
-							resultado.add(v);
-						} else if (v.getTotalVentas() == maxVentas) {// WMC: +1   //CCOG: +1
-							resultado.add(v);
-						}
-					}
+			case OPCION_VENDEDOR_DEL_MES:
+				resultado = tienda.buscaVendedoresMes();
 
-					msj = "";
-					for (Vendedor vn : resultado) {// WMC: +1   //CCOG: +1
-						msj += vn.getNombre() + "\n";
-					}
-					mensaje("VENDEDORES DEL MES", msj);
+				msj = Textos.MSJ_VACIO;
 
-				} catch (DataAccessException e) {// WMC: +1   //CCOG: +1
-					mensaje("ERROR", "No se pudo acceder a los datos");
+				// ponemos el nombre de cada vendedor del mes para devolverlo
+				for (Vendedor vendedor : resultado) {
+					msj += vendedor.getNombre() + "\n";
 				}
+				mostrarVentanaMensaje(Textos.MSJ_VENDERORES_MES, msj);
 				break;
 
-			case VENDEDORES:// WMC: +1
-				try {
-					vendedores = tienda.vendedores();
-					System.out.println(vendedores.size());
-					Collections.sort(vendedores, new Comparator<Vendedor>() {
-						public int compare(Vendedor o1, Vendedor o2) {
-							if (o1.getTotalVentas() > o2.getTotalVentas())// WMC: +1   //CCOG: +1
-								return -1;
-							else if (o1.getTotalVentas() < o2.getTotalVentas())// WMC: +1   //CCOG: +1
-								return 1;
-							return 0;
-						}
-					});
-					msj = "";
-					for (Vendedor vn : vendedores) {// WMC: +1   //CCOG: +1
-						msj += vn.getNombre() + " (" + vn.getId()+ ") "+vn.getTotalVentas() + "\n";
-					}
-					mensaje("VENDEDORES", msj);
-				} catch (DataAccessException e) {// WMC: +1   //CCOG: +1
-					mensaje("ERROR", "No se pudo acceder a los datos");
+			case OPCION_VENDEDORES:
+				vendedores = tienda.ordenarVendedoresVentas();
+
+				msj = Textos.MSJ_VACIO;
+				for (Vendedor vendedor : vendedores) {
+					msj += vendedor.getNombre() + " (" + vendedor.getId() + ") " + vendedor.getTotalVentas() + "\n";
 				}
+				mostrarVentanaMensaje(Textos.MSJ_VENDEDORES, msj);
+
 				break;
 			}
 		}
@@ -116,10 +99,11 @@ public class GestionComisiones {
 
 	/**
 	 * Metodo auxiliar que muestra un ventana de mensaje
+	 * 
 	 * @param titulo Titulo de la ventana
 	 * @param txt    Texto contenido en la ventana
 	 */
-	private static void mensaje(String titulo, String txt) {// WMC: +1
+	private static void mostrarVentanaMensaje(String titulo, String txt) {
 		Mensaje msj = new Mensaje(titulo);
 		msj.escribe(txt);
 

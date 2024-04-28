@@ -87,7 +87,7 @@ public class Tienda {
 	 */
 	public boolean anhadeVenta(String id, double importe) throws DataAccessException {// WMC: +1
 		Vendedor v = buscaVendedor(id);
-		if (v == null) {// WMC: +1
+		if (v == null) {// WMC: +1   //CCOG: +1
 			return false;
 		}
 		double comision = 0;

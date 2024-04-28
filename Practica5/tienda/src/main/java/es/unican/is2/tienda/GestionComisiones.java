@@ -67,8 +67,8 @@ public class GestionComisiones {
 					vendedores = tienda.vendedores();
 					resultado = new LinkedList<Vendedor>();
 					double maxVentas = 0.0;
-					for (Vendedor v : vendedores) {// WMC: +1   //CCOG: +1
-						if (v.getTotalVentas() > maxVentas) {// WMC: +1   //CCOG: +1 +1 
+					for (Vendedor v : vendedores) {// WMC: +1   //CCOG: +1 +1 +1
+						if (v.getTotalVentas() > maxVentas) {// WMC: +1   //CCOG: +1 +1 +1 +1
 							maxVentas = v.getTotalVentas();
 							resultado.clear();
 							resultado.add(v);
@@ -78,12 +78,12 @@ public class GestionComisiones {
 					}
 
 					msj = "";
-					for (Vendedor vn : resultado) {// WMC: +1   //CCOG: +1
+					for (Vendedor vn : resultado) {// WMC: +1   //CCOG: +1 +1 +1
 						msj += vn.getNombre() + "\n";
 					}
 					mensaje("VENDEDORES DEL MES", msj);
 
-				} catch (DataAccessException e) {// WMC: +1   //CCOG: +1
+				} catch (DataAccessException e) {// WMC: +1   //CCOG: +1 +1 +1
 					mensaje("ERROR", "No se pudo acceder a los datos");
 				}
 				break;
@@ -102,11 +102,11 @@ public class GestionComisiones {
 						}
 					});
 					msj = "";
-					for (Vendedor vn : vendedores) {// WMC: +1   //CCOG: +1
+					for (Vendedor vn : vendedores) {// WMC: +1   //CCOG: +1 +1 +1
 						msj += vn.getNombre() + " (" + vn.getId()+ ") "+vn.getTotalVentas() + "\n";
 					}
 					mensaje("VENDEDORES", msj);
-				} catch (DataAccessException e) {// WMC: +1   //CCOG: +1
+				} catch (DataAccessException e) {// WMC: +1   //CCOG: +1 +1 +1
 					mensaje("ERROR", "No se pudo acceder a los datos");
 				}
 				break;
