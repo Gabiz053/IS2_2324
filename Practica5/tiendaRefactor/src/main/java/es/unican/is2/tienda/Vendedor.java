@@ -9,13 +9,15 @@ public abstract class Vendedor {
 	private String id;
 	private String nombre;
 	private String dni;
-	private double comision;
-	private double totalVentas;
+	protected double totalComision;
+	protected double totalVentas;
 
 	public Vendedor(String nombre, String id, String dni) {
 		this.nombre = nombre;
 		this.id = id;
 		this.dni = dni;
+		totalComision = 0;
+		totalVentas = 0;
 	}
 
 	/**
@@ -50,8 +52,8 @@ public abstract class Vendedor {
 	 * 
 	 * @return Comision total acumulada
 	 */
-	public double getComision() {
-		return comision;
+	public double getTotalComision() {
+		return totalComision;
 	}
 
 	/**
@@ -59,8 +61,8 @@ public abstract class Vendedor {
 	 * 
 	 * @param value comision a asignar
 	 */
-	public void setComision(double value) {
-		this.comision = value;
+	public void setTotalComision(double value) {
+		this.totalComision = value;
 	}
 
 	/**
@@ -82,11 +84,11 @@ public abstract class Vendedor {
 	}
 
 	/**
-	 * Anhade una nueva venta al vendedor
+	 * Anhade una nueva venta al vendedor contando la comision
 	 * 
 	 * @param importe de la venta
 	 */
-	public void anhade(double importe) {
+	public void anhadeVenta(double importe) {
 		totalVentas += importe;
 	}
 
@@ -96,7 +98,7 @@ public abstract class Vendedor {
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
-		
+
 		Vendedor v = (Vendedor) obj;
 		return (v.getId().equals(getId()) && v.getDni().equals(getDni()));
 	}

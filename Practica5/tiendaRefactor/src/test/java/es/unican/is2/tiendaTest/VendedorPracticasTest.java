@@ -8,16 +8,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import es.unican.is2.tienda.Vendedor;
-import es.unican.is2.tienda.vendedorPracticas;
+import es.unican.is2.tienda.VendedorPracticas;
 
 
-public class VendedorEnPracticasTest {
+public class VendedorPracticasTest {
 	
 	private static Vendedor sut;
 
 	@BeforeEach
 	public void setUp(){
-		sut = new vendedorPracticas("Ana", "1", "11111111A");
+		sut = new VendedorPracticas("Ana", "1", "11111111A");
 	}
 	
 	@Test
@@ -26,7 +26,7 @@ public class VendedorEnPracticasTest {
 		assertEquals(sut.getNombre(), "Ana");
 		assertEquals(sut.getDni(), "11111111A");
 		assertEquals(0.0, sut.getTotalVentas());
-		assertEquals(0.0, sut.getComision());
+		assertEquals(0.0, sut.getTotalComision());
 	}
 	
 	@Test
@@ -43,34 +43,34 @@ public class VendedorEnPracticasTest {
 	
 	@Test
 	public void testSetC() {
-		sut.setComision(100);
-		assertTrue(sut.getComision()==100.0);
+		sut.setTotalComision(100);
+		assertTrue(sut.getTotalComision()==100.0);
 		
-		sut.setComision(230);
-		assertTrue(sut.getComision()==230.0);
+		sut.setTotalComision(230);
+		assertTrue(sut.getTotalComision()==230.0);
 		
-		sut.setComision(0);
-		assertTrue(sut.getComision()==0.0);
+		sut.setTotalComision(0);
+		assertTrue(sut.getTotalComision()==0.0);
 	}
 
 	@Test
 	public void testAnhadeVenta() {
-		sut.anhade(200);
+		sut.anhadeVenta(200);
 		assertTrue(sut.getTotalVentas() == 200.0);
 		
-		sut.anhade(300);
+		sut.anhadeVenta(300);
 		assertTrue(sut.getTotalVentas() == 500.0);	
 		
-		sut.anhade(0);
+		sut.anhadeVenta(0);
 		assertTrue(sut.getTotalVentas() == 500.0);
 		
 	}
 	
 	@Test
 	public void testEquals() {
-		Vendedor igual = new vendedorPracticas("Ana", "1", "11111111A");
-		Vendedor distintoId = new vendedorPracticas("Ana", "2", "11111111A");
-		Vendedor distintoNombre = new vendedorPracticas("Pepe", "1", "222222222A");
+		Vendedor igual = new VendedorPracticas("Ana", "1", "11111111A");
+		Vendedor distintoId = new VendedorPracticas("Ana", "2", "11111111A");
+		Vendedor distintoNombre = new VendedorPracticas("Pepe", "1", "222222222A");
 		
 		assertTrue(sut.equals(igual));
 		assertFalse(sut.equals(distintoId));

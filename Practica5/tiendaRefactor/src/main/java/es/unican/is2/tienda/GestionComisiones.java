@@ -63,7 +63,7 @@ public class GestionComisiones {
 
 				// una vez tenemos los datos tratamos de añadir nueva venta
 				try {
-					if (!tienda.anhadeVenta(dni, importe)) {
+					if (!tienda.anhadeVentaVendedor(dni, importe)) {
 						mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_VENDEDOR_NO_EXISTE);
 					}
 				} catch (DataAccessException e) {
