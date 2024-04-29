@@ -1,82 +1,79 @@
 package es.unican.is2.tiendaTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import es.unican.is2.tienda.VendedorJunior;
+import es.unican.is2.tienda.VendedorSenior;
 
+class VendedorSeniorTest {
 
+	static VendedorSenior sutSenior;
 
-public class VendedorSeniorTest {
-	
-	private static VendedorJunior sutSenior;
-
-	
 	@BeforeEach
-	public void setUp(){
-		sutSenior = new VendedorJunior("Ana", "1", "11111111A");
-	}
-	
-	@Test
-	public void testConstructor() {
-		assertEquals(sutSenior.getId(), "1");
-		assertEquals(sutSenior.getDni(), "11111111A");
-		assertEquals(sutSenior.getNombre(), "Ana");
-		assertTrue(sutSenior.getTotalVentas()==0.0);
-		assertTrue(sutSenior.getTotalComision()==0.0);
+	void setUp() {
+		sutSenior = new VendedorSenior("Ana", "1", "11111111A");
 	}
 
 	@Test
-	public void testAnhadeVenta() {
-	
+	void testConstructor() {
+		assertEquals("1", sutSenior.getId());
+		assertEquals("11111111A", sutSenior.getDni());
+		assertEquals("Ana", sutSenior.getNombre());
+		assertEquals(0.0, sutSenior.getTotalVentas());
+		assertEquals(0.0, sutSenior.getTotalComision());
+	}
+
+	@Test
+	void testAnhadeVenta() {
 		sutSenior.anhadeVenta(200);
-		assertEquals(sutSenior.getTotalVentas(), 200, 0);
+		assertEquals(200, sutSenior.getTotalVentas());
+
 		sutSenior.anhadeVenta(300);
-		assertEquals(sutSenior.getTotalVentas(), 500, 0);
+		assertEquals(500, sutSenior.getTotalVentas());
+
 		sutSenior.anhadeVenta(0);
-		assertEquals(sutSenior.getTotalVentas(), 500, 0);
-	}
-	
-	@Test
-	public void testSetTotalVentas() {
-		
-		sutSenior.setTotalVentas(2000);
-		assertEquals(sutSenior.getTotalVentas(), 2000, 0);	
-		sutSenior.setTotalVentas(4000);
-		assertEquals(sutSenior.getTotalVentas(), 4000, 0);	
-		sutSenior.setTotalVentas(0);
-		assertEquals(sutSenior.getTotalVentas(), 0, 0);
-	}
-	
-	@Test
-	public void testSetComision() {
-		
-		sutSenior.setTotalComision(2000);
-		assertEquals(sutSenior.getTotalComision(), 2000, 0);	
-		sutSenior.setTotalComision(4000);
-		assertEquals(sutSenior.getTotalComision(), 4000, 0);	
-		sutSenior.setTotalComision(0);
-		assertEquals(sutSenior.getTotalComision(), 0, 0);
+		assertEquals(500, sutSenior.getTotalVentas());
 	}
 
-	
 	@Test
-	public void testEquals() {
-		VendedorJunior igualJunior = new VendedorJunior("Ana", "1", "11111111A");
-		VendedorJunior distintoIdJunior = new VendedorJunior("Ana", "2", "11111111A");
-		VendedorJunior distintoDNIJunior = new VendedorJunior("Ana", "1", "222222222A");
-		
-		assertTrue(sutSenior.equals(igualJunior));
-		assertFalse(sutSenior.equals(distintoIdJunior));
-		assertFalse(sutSenior.equals(distintoDNIJunior));
-		
-		assertFalse(sutSenior.equals(new Object()));
+	void testSetTotalVentas() {
+
+		sutSenior.setTotalVentas(2000);
+		assertEquals(2000, sutSenior.getTotalVentas());
+
+		sutSenior.setTotalVentas(4000);
+		assertEquals(4000, sutSenior.getTotalVentas());
+
+		sutSenior.setTotalVentas(0);
+		assertEquals(0, sutSenior.getTotalVentas());
 	}
-	
-	
-	
+
+	@Test
+	void testSetComision() {
+
+		sutSenior.setTotalComision(2000);
+		assertEquals(2000, sutSenior.getTotalComision());
+
+		sutSenior.setTotalComision(4000);
+		assertEquals(4000, sutSenior.getTotalComision());
+
+		sutSenior.setTotalComision(0);
+		assertEquals(0, sutSenior.getTotalComision());
+	}
+
+	@Test
+	void testEquals() {
+		VendedorSenior igual = new VendedorSenior("Ana", "1", "11111111A");
+		VendedorSenior distintoId = new VendedorSenior("Ana", "2", "11111111A");
+		VendedorSenior distintoDNI = new VendedorSenior("Ana", "1", "222222222A");
+
+		assertEquals(sutSenior, igual);
+		assertNotEquals(sutSenior, distintoId);
+		assertNotEquals(sutSenior, distintoDNI);
+		assertNotEquals(sutSenior, new Object());
+	}
+
 }

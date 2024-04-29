@@ -1,6 +1,6 @@
 package es.unican.is2.tienda;
 
-public class Textos {
+public class Textos { // WMC: +1
 
 	// todos los textos de la aplicacion
 	public static final String DATOS_TIENDA_PATH = "C:\\temp\\datosTienda.txt";

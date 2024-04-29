@@ -6,13 +6,13 @@ package es.unican.is2.tienda;
  */
 public abstract class Vendedor {
 
-	private String id;
-	private String nombre;
-	private String dni;
+	private final String id;
+	private final String nombre;
+	private final String dni;
 	protected double totalComision;
 	protected double totalVentas;
 
-	public Vendedor(String nombre, String id, String dni) {
+	public Vendedor(String nombre, String id, String dni) { // WMC: +1
 		this.nombre = nombre;
 		this.id = id;
 		this.dni = dni;
@@ -22,84 +22,84 @@ public abstract class Vendedor {
 
 	/**
 	 * Retorna el nombre del vendedor
-	 * 
+	 *
 	 * @return nombre
 	 */
-	public String getNombre() {
+	public String getNombre() { // WMC: +1
 		return nombre;
 	}
 
 	/**
 	 * Retorna el id del vendedor
-	 * 
+	 *
 	 * @return id
 	 */
-	public String getId() {
+	public String getId() { // WMC: +1
 		return id;
 	}
 
 	/**
 	 * Retorna el dni del vendedor
-	 * 
+	 *
 	 * @return dni
 	 */
-	public String getDni() {
+	public String getDni() { // WMC: +1
 		return dni;
 	}
 
 	/**
 	 * Retorna la comision mensual acumulada
-	 * 
+	 *
 	 * @return Comision total acumulada
 	 */
-	public double getTotalComision() {
+	public double getTotalComision() { // WMC: +1
 		return totalComision;
 	}
 
 	/**
 	 * Asigna valor a la comision mensual acumulada
-	 * 
+	 *
 	 * @param value comision a asignar
 	 */
-	public void setTotalComision(double value) {
-		this.totalComision = value;
+	public void setTotalComision(double value) { // WMC: +1
+		totalComision = value;
 	}
 
 	/**
 	 * Retorna el importe total mensual de ventas
-	 * 
+	 *
 	 * @return importe total de ventas acumuladas
 	 */
-	public double getTotalVentas() {
+	public double getTotalVentas() { // WMC: +1
 		return totalVentas;
 	}
 
 	/**
 	 * Asigna valor al total de ventas mensual
-	 * 
+	 *
 	 * @param value total de ventas a asignar
 	 */
-	public void setTotalVentas(double value) {
+	public void setTotalVentas(double value) { // WMC: +1
 		totalVentas = value;
 	}
 
 	/**
 	 * Anhade una nueva venta al vendedor contando la comision
-	 * 
+	 *
 	 * @param importe de la venta
 	 */
-	public void anhadeVenta(double importe) {
+	public void anhadeVenta(double importe) { // WMC: +1
 		totalVentas += importe;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) { // WMC: +1
 		// No es una instancia de Vendedor o es null
-		if (obj == null || getClass() != obj.getClass()) {
+		if ((obj == null) || (getClass() != obj.getClass())) { // WMC: +1 +1 //CCOG: +1 +1
 			return false;
 		}
 
 		Vendedor v = (Vendedor) obj;
-		return (v.getId().equals(getId()) && v.getDni().equals(getDni()));
+		return (v.getId().equals(getId()) && v.getDni().equals(getDni())); // WMC: +1 +1 //CCOG: +1 +1
 	}
 }

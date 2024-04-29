@@ -1,8 +1,7 @@
 package es.unican.is2.tiendaTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,75 +9,71 @@ import org.junit.jupiter.api.Test;
 import es.unican.is2.tienda.Vendedor;
 import es.unican.is2.tienda.VendedorPracticas;
 
+class VendedorPracticasTest {
 
-public class VendedorPracticasTest {
-	
-	private static Vendedor sut;
+	static Vendedor sut;
 
 	@BeforeEach
-	public void setUp(){
+	void setUp() {
 		sut = new VendedorPracticas("Ana", "1", "11111111A");
 	}
-	
+
 	@Test
-	public void testConstructor() {
-		assertEquals(sut.getId(), "1");
-		assertEquals(sut.getNombre(), "Ana");
-		assertEquals(sut.getDni(), "11111111A");
+	void testConstructor() {
+		assertEquals("1", sut.getId());
+		assertEquals("Ana", sut.getNombre());
+		assertEquals("11111111A", sut.getDni());
 		assertEquals(0.0, sut.getTotalVentas());
 		assertEquals(0.0, sut.getTotalComision());
 	}
-	
+
 	@Test
-	public void testSetT() {
+	void testSetT() {
 		sut.setTotalVentas(100);
-		assertTrue(sut.getTotalVentas()==100.0);
-		
+		assertEquals(100.0, sut.getTotalVentas());
+
 		sut.setTotalVentas(230);
-		assertTrue(sut.getTotalVentas()==230.0);
-		
+		assertEquals(230.0, sut.getTotalVentas());
+
 		sut.setTotalVentas(0);
-		assertTrue(sut.getTotalVentas()==0.0);
-	}
-	
-	@Test
-	public void testSetC() {
-		sut.setTotalComision(100);
-		assertTrue(sut.getTotalComision()==100.0);
-		
-		sut.setTotalComision(230);
-		assertTrue(sut.getTotalComision()==230.0);
-		
-		sut.setTotalComision(0);
-		assertTrue(sut.getTotalComision()==0.0);
+		assertEquals(0.0, sut.getTotalVentas());
 	}
 
 	@Test
-	public void testAnhadeVenta() {
-		sut.anhadeVenta(200);
-		assertTrue(sut.getTotalVentas() == 200.0);
-		
-		sut.anhadeVenta(300);
-		assertTrue(sut.getTotalVentas() == 500.0);	
-		
-		sut.anhadeVenta(0);
-		assertTrue(sut.getTotalVentas() == 500.0);
-		
+	void testSetC() {
+		sut.setTotalComision(100);
+		assertEquals(100.0, sut.getTotalComision());
+
+		sut.setTotalComision(230);
+		assertEquals(230.0, sut.getTotalComision());
+
+		sut.setTotalComision(0);
+		assertEquals(0.0, sut.getTotalComision());
 	}
-	
+
 	@Test
-	public void testEquals() {
+	void testAnhadeVenta() {
+		sut.anhadeVenta(200);
+		assertEquals(200.0, sut.getTotalVentas());
+
+		sut.anhadeVenta(300);
+		assertEquals(500.0, sut.getTotalVentas());
+
+		sut.anhadeVenta(0);
+		assertEquals(500.0, sut.getTotalVentas());
+
+	}
+
+	@Test
+	void testEquals() {
 		Vendedor igual = new VendedorPracticas("Ana", "1", "11111111A");
 		Vendedor distintoId = new VendedorPracticas("Ana", "2", "11111111A");
 		Vendedor distintoNombre = new VendedorPracticas("Pepe", "1", "222222222A");
-		
-		assertTrue(sut.equals(igual));
-		assertFalse(sut.equals(distintoId));
-		assertFalse(sut.equals(distintoNombre));
-		
-		assertFalse(sut.equals(new Object()));
+
+		assertEquals(sut, igual);
+		assertNotEquals(sut, distintoId);
+		assertNotEquals(sut, distintoNombre);
+		assertNotEquals(sut, new Object());
 	}
-	
-	
-	
+
 }

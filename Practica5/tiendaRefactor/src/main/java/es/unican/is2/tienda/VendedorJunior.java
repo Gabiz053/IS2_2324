@@ -6,16 +6,16 @@ public class VendedorJunior extends Vendedor {
 
 	/**
 	 * Retorna un nuevo vendedor junior
-	 * 
+	 *
 	 * @param nombre
 	 * @param dni
 	 */
-	public VendedorJunior(String nombre, String id, String dni) {
+	public VendedorJunior(String nombre, String id, String dni) { // WMC: +1
 		super(nombre, id, dni);
 	}
 
 	@Override
-	public void anhadeVenta(double importe) {
+	public void anhadeVenta(double importe) { // WMC: +1
 		totalComision += importe * VALOR_COMISION;
 		totalVentas += importe;
 	}
