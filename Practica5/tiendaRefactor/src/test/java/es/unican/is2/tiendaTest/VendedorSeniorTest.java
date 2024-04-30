@@ -30,12 +30,15 @@ class VendedorSeniorTest {
 	void testAnhadeVenta() {
 		sutSenior.anhadeVenta(200);
 		assertEquals(200, sutSenior.getTotalVentas());
+		assertEquals(2, sutSenior.getTotalComision());
 
 		sutSenior.anhadeVenta(300);
 		assertEquals(500, sutSenior.getTotalVentas());
+		assertEquals(5, sutSenior.getTotalComision());
 
 		sutSenior.anhadeVenta(0);
 		assertEquals(500, sutSenior.getTotalVentas());
+		assertEquals(5, sutSenior.getTotalComision());
 	}
 
 	@Test

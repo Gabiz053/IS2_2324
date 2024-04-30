@@ -24,7 +24,7 @@ class VendedorPracticasTest {
 		assertEquals("Ana", sut.getNombre());
 		assertEquals("11111111A", sut.getDni());
 		assertEquals(0.0, sut.getTotalVentas());
-		assertEquals(0.0, sut.getTotalComision());
+
 	}
 
 	@Test
@@ -37,18 +37,6 @@ class VendedorPracticasTest {
 
 		sut.setTotalVentas(0);
 		assertEquals(0.0, sut.getTotalVentas());
-	}
-
-	@Test
-	void testSetC() {
-		sut.setTotalComision(100);
-		assertEquals(100.0, sut.getTotalComision());
-
-		sut.setTotalComision(230);
-		assertEquals(230.0, sut.getTotalComision());
-
-		sut.setTotalComision(0);
-		assertEquals(0.0, sut.getTotalComision());
 	}
 
 	@Test

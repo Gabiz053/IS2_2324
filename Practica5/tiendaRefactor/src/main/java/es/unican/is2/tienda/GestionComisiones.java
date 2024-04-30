@@ -29,7 +29,6 @@ public class GestionComisiones {
 		List<Vendedor> resultado;
 		String msj;
 
-		// crea la tienda
 		Tienda tienda = new Tienda(Textos.DATOS_TIENDA_PATH);
 
 		// crea la ventana de menu
@@ -41,12 +40,6 @@ public class GestionComisiones {
 
 		// lazo de espera de comandos del usuario
 		while (true) { // WMC: +1 //CCOG: +1
-			// leemos el fichero para conseguir los vendedores actualizados
-			try {
-				tienda.vendedores();
-			} catch (DataAccessException e) { // WMC: +1 //CCOG: +1 +1
-				mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_NO_ACCEDER);
-			}
 
 			opcion = menu.leeOpcion();
 
@@ -62,13 +55,7 @@ public class GestionComisiones {
 				double importe = lect.leeDouble(Textos.VENTA_IMPORTE);
 
 				// una vez tenemos los datos tratamos de añadir nueva venta
-				try {
-					if (!tienda.anhadeVentaVendedor(dni, importe)) { // WMC: +1 //CCOG: +1 +1 +1
-						mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_VENDEDOR_NO_EXISTE);
-					}
-				} catch (DataAccessException e) { // WMC: +1 //CCOG: +1 +1 +1
-					mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_NO_GUARDAR);
-				}
+				anhadirNuevaVenta(dni, tienda, importe);
 				break;
 
 			case OPCION_VENDEDOR_DEL_MES: // WMC: +1
@@ -94,6 +81,16 @@ public class GestionComisiones {
 
 				break;
 			}
+		}
+	}
+
+	private static void anhadirNuevaVenta(String dni, Tienda tienda, double importe) {
+		try {
+			if (!tienda.anhadeVentaVendedor(dni, importe)) { // WMC: +1 //CCOG: +1
+				mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_VENDEDOR_NO_EXISTE);
+			}
+		} catch (DataAccessException e) { // WMC: +1 //CCOG: +1
+			mostrarVentanaMensaje(Textos.MSJ_ERROR, Textos.ERROR_NO_GUARDAR);
 		}
 	}
 

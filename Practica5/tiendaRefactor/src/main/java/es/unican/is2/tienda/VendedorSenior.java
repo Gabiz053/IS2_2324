@@ -1,6 +1,6 @@
 package es.unican.is2.tienda;
 
-public class VendedorSenior extends Vendedor {
+public class VendedorSenior extends VendedorPlantilla {
 
 	private static final double VALOR_COMISION = 0.01;
 

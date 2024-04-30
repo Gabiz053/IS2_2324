@@ -32,6 +32,9 @@ public class Tienda {
 	 */
 	public Tienda(String datos) { // WMC: +1
 		this.datos = datos;
+
+		// iniciamos los datos al crear la tienda
+		vendedores();
 	}
 
 	/**
@@ -116,7 +119,7 @@ public class Tienda {
 	 * @param id Id del vendedor
 	 * @return vendedor con ese dni o null si no existe ninguno
 	 */
-	public Vendedor buscaVendedor(String id) throws DataAccessException { // WMC: +1
+	public Vendedor buscaVendedor(String id) { // WMC: +1
 
 		lista = vendedores();
 
@@ -134,7 +137,7 @@ public class Tienda {
 	 *
 	 * @return La lista de vendedores
 	 */
-	public List<Vendedor> vendedores() throws DataAccessException { // WMC: +1
+	public List<Vendedor> vendedores() { // WMC: +1
 		lista = new LinkedList<>();
 		Scanner in = null;
 
@@ -153,7 +156,6 @@ public class Tienda {
 			leerVendedoresPracticas(in);
 
 		} catch (FileNotFoundException e) { // WMC: +1 //CCOG: +1
-			throw new DataAccessException();
 
 		} finally {
 			if (in != null) {
@@ -164,7 +166,7 @@ public class Tienda {
 	}
 
 	private void leerVendedoresSenior(Scanner in) { // WMC: +1
-		Vendedor ven;
+		VendedorSenior ven;
 		while (in.hasNext() && !in.next().equals(Textos.TIPO_VEN_JUNIOR)) { // WMC: +1 +1 //CCOG: +1 +1
 			String nombreVendedor = in.next();
 			in.next();
@@ -183,7 +185,7 @@ public class Tienda {
 	}
 
 	private void leerVendedoresJunior(Scanner in) { // WMC: +1
-		Vendedor ven;
+		VendedorJunior ven;
 		while (in.hasNext() && !in.next().equals(Textos.TIPO_VEN_PRACTICAS)) { // WMC: +1 +1 //CCOG: +1 +1
 			String nombreVendedor = in.next();
 			in.next();
@@ -202,7 +204,7 @@ public class Tienda {
 	}
 
 	private void leerVendedoresPracticas(Scanner in) { // WMC: +1
-		Vendedor ven;
+		VendedorPracticas ven;
 		while (in.hasNext()) { // WMC: +1 //CCOG: +1
 			in.next();
 			String nombreVendedor = in.next();
@@ -247,24 +249,13 @@ public class Tienda {
 			out.println(direccion);
 			out.println();
 			out.println(Textos.TIPO_VEN_SENIOR);
-			for (Vendedor v : senior) { // WMC: +1 //CCOG: +1
-				out.println(Textos.DATO_VEN_NOMBRE + v.getNombre() + Textos.DATO_VEN_ID + v.getId()
-						+ Textos.DATO_VEN_DNI + v.getDni() + Textos.DATO_VEN_VENTAS + v.getTotalVentas()
-						+ Textos.DATO_VEN_COMISION + v.getTotalComision());
-			}
+			pintaVenderoresPlantilla(out, senior);
 			out.println();
 			out.println(Textos.TIPO_VEN_JUNIOR);
-			for (Vendedor v : junior) { // WMC: +1 //CCOG: +1
-				out.println(Textos.DATO_VEN_NOMBRE + v.getNombre() + Textos.DATO_VEN_ID + v.getId()
-						+ Textos.DATO_VEN_DNI + v.getDni() + Textos.DATO_VEN_VENTAS + v.getTotalVentas()
-						+ Textos.DATO_VEN_COMISION + v.getTotalComision());
-			}
+			pintaVenderoresPlantilla(out, junior);
 			out.println();
 			out.println(Textos.TIPO_VEN_PRACTICAS);
-			for (Vendedor v : practicas) { // WMC: +1 //CCOG: +1
-				out.println(Textos.DATO_VEN_NOMBRE + v.getNombre() + Textos.DATO_VEN_ID + v.getId()
-						+ Textos.DATO_VEN_DNI + v.getDni() + Textos.DATO_VEN_VENTAS + v.getTotalVentas());
-			}
+			pintaVendedoresPracticas(out, practicas);
 		} catch (IOException e) { // WMC: +1 //CCOG: +1
 			throw new DataAccessException();
 
@@ -272,6 +263,21 @@ public class Tienda {
 			if (out != null) {
 				out.close();
 			}
+		}
+	}
+
+	private void pintaVenderoresPlantilla(PrintWriter out, List<Vendedor> vendedores) { // WMC: +1
+		for (Vendedor v : vendedores) { // WMC: +1 //CCOG: +1
+			out.println(Textos.DATO_VEN_NOMBRE + v.getNombre() + Textos.DATO_VEN_ID + v.getId() + Textos.DATO_VEN_DNI
+					+ v.getDni() + Textos.DATO_VEN_VENTAS + v.getTotalVentas() + Textos.DATO_VEN_COMISION
+					+ ((VendedorPlantilla) v).getTotalComision());
+		}
+	}
+
+	private void pintaVendedoresPracticas(PrintWriter out, List<Vendedor> practicas) { // WMC: +1
+		for (Vendedor v : practicas) { // WMC: +1 //CCOG: +1
+			out.println(Textos.DATO_VEN_NOMBRE + v.getNombre() + Textos.DATO_VEN_ID + v.getId() + Textos.DATO_VEN_DNI
+					+ v.getDni() + Textos.DATO_VEN_VENTAS + v.getTotalVentas());
 		}
 	}
 

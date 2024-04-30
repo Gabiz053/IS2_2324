@@ -9,14 +9,12 @@ public abstract class Vendedor {
 	private final String id;
 	private final String nombre;
 	private final String dni;
-	protected double totalComision;
 	protected double totalVentas;
 
-	public Vendedor(String nombre, String id, String dni) { // WMC: +1
+	protected Vendedor(String nombre, String id, String dni) { // WMC: +1
 		this.nombre = nombre;
 		this.id = id;
 		this.dni = dni;
-		totalComision = 0;
 		totalVentas = 0;
 	}
 
@@ -45,24 +43,6 @@ public abstract class Vendedor {
 	 */
 	public String getDni() { // WMC: +1
 		return dni;
-	}
-
-	/**
-	 * Retorna la comision mensual acumulada
-	 *
-	 * @return Comision total acumulada
-	 */
-	public double getTotalComision() { // WMC: +1
-		return totalComision;
-	}
-
-	/**
-	 * Asigna valor a la comision mensual acumulada
-	 *
-	 * @param value comision a asignar
-	 */
-	public void setTotalComision(double value) { // WMC: +1
-		totalComision = value;
 	}
 
 	/**
